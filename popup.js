@@ -1,11 +1,19 @@
+var x, y, color, fingerprint;
 function pixel1825() {
-    var x = document.getElementById('x').value;
-    var y = document.getElementById('y').value;
-    var color = document.getElementById('color').value;
-    var fingerprint = document.getElementById('fingerprint').value;
-    var x_double = x+2;
+    this.x = document.getElementById('x').value;
+    this.y = document.getElementById('y').value;
+    this.color = document.getElementById('color').value;
+    this.fingerprint = document.getElementById('fingerprint').value;
 
-    var array = {
+    var json = coords(this.x, this.y, this.color, this.fingerprint);
+
+    sendAjax(json);
+
+    setInterval(wait, 60000);
+}
+
+function coords(x, y, color, fingerprint) {
+    var coords = {
         'x': x,
         'y': y,
         'color' : color,
@@ -13,8 +21,11 @@ function pixel1825() {
         'token' : null
 
     };
-    var json = JSON.stringify(array);
+    console.log(coords);
+    return JSON.stringify(coords);
+}
 
+function sendAjax(json) {
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
 
@@ -30,6 +41,12 @@ function pixel1825() {
     xhr.setRequestHeader("postman-token", "5c6dc267-2d0a-9de8-6d93-069f42e789f8");
 
     xhr.send(json);
+}
+
+function wait() {
+    var x = (parseInt(this.x)+2);
+    var json  = coords(x, this.y, this.color, this.fingerprint);
+    sendAjax(json);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
