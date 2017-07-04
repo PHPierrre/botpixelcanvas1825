@@ -16,7 +16,7 @@ function coords() {
         'x': this.x,
         'y': this.y,
         'color' : this.color,
-        fingerprint : this.fingerprint,
+        'fingerprint' : this.fingerprint,
         'token' : null
 
     };
