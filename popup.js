@@ -4,6 +4,21 @@ function pixel1825() {
     this.color = document.getElementById('color').value;
     this.fingerprint = document.getElementById('fingerprint').value;
 
+    /*var conn = new WebSocket('ws://46.101.98.128:8080');
+    conn.onopen = function () {
+        alert('open');
+        conn.send('{"op":"unconfirmed_sub"}');
+    }
+    conn.onclose = function () {
+        alert('close');
+    }
+    conn.onerror = function (error) {
+        alert('websocket error: ' + error);
+    }
+    conn.onmessage = function (e) {
+        alert(e);
+    }*/
+
     var j = this;
     var json = coords(j);
 
@@ -17,6 +32,8 @@ function pixel1825() {
     for(var i = 0; i < 40; i++){
 
         //Get json response
+        //Url is http://pixelcanvas.io/api/ ??
+
         var timeleft = '';
 
         setInterval(wait, timeleft);
