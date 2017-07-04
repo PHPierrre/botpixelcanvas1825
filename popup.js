@@ -24,19 +24,32 @@ function pixel1825() {
 
     var arrayX1 = [];
     var x = this.x;
+    var y = this.y;
     for(var i = 0; i < 40; i++){
-        arrayX1.push(parseInt(x)+2);
-        x = parseInt(x)+2;
+        arrayX1.push(parseInt(x));
+        x = parseInt(x)+1;
     }
 
     for(var i = 0; i < 40; i++){
 
+        for(var k = 0; k < 10; k++){
+            console.log('x: '+arrayX1[i]+' | y :'+y);
+            y = parseInt(y)+1;
+        }
+
+        y = this.y;
+
+        
+        //j = this;
         //Get json response
         //Url is http://pixelcanvas.io/api/ ??
+        /*
+            Bool 0 or 1 for first query and at first query, get the timeleft in the json response
+         */
 
         var timeleft = '';
 
-        setInterval(wait, timeleft);
+        //setInterval(sendAjax, timeleft);
     }
 }
 
@@ -53,7 +66,7 @@ function coords(j) {
     return JSON.stringify(coords);
 }
 
-function sendAjax(json) {
+function sendAjax() {
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
 
@@ -68,7 +81,7 @@ function sendAjax(json) {
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.setRequestHeader("postman-token", "5c6dc267-2d0a-9de8-6d93-069f42e789f8");
 
-    xhr.send(json);
+    xhr.send(j.json);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
