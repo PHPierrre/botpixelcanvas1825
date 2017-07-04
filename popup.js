@@ -4,23 +4,35 @@ function pixel1825() {
     this.color = document.getElementById('color').value;
     this.fingerprint = document.getElementById('fingerprint').value;
 
-    var json = coords();
+    var j = this;
+    var json = coords(j);
 
-    sendAjax(json);
+    var arrayX1 = [];
+    var x = this.x;
+    for(var i = 0; i < 40; i++){
+        arrayX1.push(parseInt(x)+2);
+        x = parseInt(x)+2;
+    }
 
-    setInterval(wait, 60000);
+    for(var i = 0; i < 40; i++){
+
+        //Get json response
+        var timeleft = '';
+
+        setInterval(wait, timeleft);
+    }
 }
 
-function coords() {
+function coords(j) {
     var coords = {
-        'x': this.x,
-        'y': this.y,
-        'color' : this.color,
-        'fingerprint' : this.fingerprint,
+        'x': j.x,
+        'y': j.y,
+        'color' : j.color,
+        'fingerprint' : j.fingerprint,
         'token' : null
 
     };
-    console.log(coords);
+
     return JSON.stringify(coords);
 }
 
@@ -40,12 +52,6 @@ function sendAjax(json) {
     xhr.setRequestHeader("postman-token", "5c6dc267-2d0a-9de8-6d93-069f42e789f8");
 
     xhr.send(json);
-}
-
-function wait() {
-    var x = (parseInt(this.x)+2);
-    var json  = coords(x, this.y, this.color, this.fingerprint);
-    sendAjax(json);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
