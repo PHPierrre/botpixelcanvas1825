@@ -1,23 +1,22 @@
-var x, y, color, fingerprint;
 function pixel1825() {
     this.x = document.getElementById('x').value;
     this.y = document.getElementById('y').value;
     this.color = document.getElementById('color').value;
     this.fingerprint = document.getElementById('fingerprint').value;
 
-    var json = coords(this.x, this.y, this.color, this.fingerprint);
+    var json = coords();
 
     sendAjax(json);
 
     setInterval(wait, 60000);
 }
 
-function coords(x, y, color, fingerprint) {
+function coords() {
     var coords = {
-        'x': x,
-        'y': y,
-        'color' : color,
-        fingerprint : fingerprint,
+        'x': this.x,
+        'y': this.y,
+        'color' : this.color,
+        fingerprint : this.fingerprint,
         'token' : null
 
     };
