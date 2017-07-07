@@ -1,22 +1,23 @@
+/*
+ Dev par PHPierre - https://www.phpierre.fr
+ Pour le 18-25
+ */
 function pixel1825() {
     this.x = document.getElementById('x').value;
     this.y = document.getElementById('y').value;
     this.color = document.getElementById('color').value;
     this.fingerprint = document.getElementById('fingerprint').value;
+    var maxX = document.getElementById('maxX').value;
+    var maxY = document.getElementById('maxY').value;
+    var sec = parseInt(parseInt(document.getElementById('sec').value)*1000);
 
-    /*var conn = new WebSocket('ws://46.101.98.128:8080');
+    /*var conn = new WebSocket('ws://165.227.139.20:8080/?fingerprint=801b194e224cd0f4c09821401fdadcd9');
     conn.onopen = function () {
-        alert('open');
-        conn.send('{"op":"unconfirmed_sub"}');
-    }
-    conn.onclose = function () {
-        alert('close');
-    }
-    conn.onerror = function (error) {
-        alert('websocket error: ' + error);
-    }
-    conn.onmessage = function (e) {
-        alert(e);
+
+        conn.onmessage = function(event) {
+            console.log(event);
+        };
+
     }*/
 
     var j = this;
@@ -25,41 +26,51 @@ function pixel1825() {
     var arrayX1 = [];
     var x = this.x;
     var y = this.y;
-    for(var i = 0; i < 20; i++){
+    for(var i = 0; i < maxX; i++){
         arrayX1.push(parseInt(x));
         x = parseInt(x)+1;
     }
+    x = this.x;
 
-    /*for(var i = 0; i < 20; i++){
-
-        for(var k = 0; k < 20; k++){
-            console.log('x: '+arrayX1[i]+' | y :'+y);
-            y = parseInt(y)+1;
-        }
-
-        y = this.y;
-    }*/
     sendAjax(json);
+
+    setTimeout(function(){
+        var time = document.getElementById('time').innerHTML;
+        time = time.replace('{"success":true,"waitSeconds":', '');
+        time = time.replace('}', '');
+        time = Math.ceil(time)*1000;
+        time = parseInt(time);
+    }, 2000);
+
+
     console.log(json);
 
-    setInterval(function(){
-        j.x = parseInt(j.x)+1;
-        var json = coords(j);
+    var refreshIntervalId = setInterval(function(){
+        console.log(j.y, maxY);
+        if(j.y <= maxY){
+            if(j.x >= maxX){
+                j.y++;
+                j.x = x;
+                json = coords(j);
+                console.log('Y++ :', 'x :', x, j.y, maxY);
+            } else if(j.x <= maxX && j.y <= maxY){
+                j.x++;
+                json = coords(j);
 
-        console.log(json);
-        sendAjax(json);
-    }, 40000);
-        
-        //j = this;
-        //Get json response
-        //Url is http://pixelcanvas.io/api/ ??
-        /*
-            Bool 0 or 1 for first query and at first query, get the timeleft in the json response
-         */
+            }else{
+                console.log('STOP :', j.x, maxX, j.y, maxY);
+                clearInterval(refreshIntervalId);
+            }
+            if(j.y <= maxY){
+                console.log(json);
+                sendAjax(json);
+            }
 
-        //var timeleft = '';
-
-        //setInterval(sendAjax, timeleft);
+        }else{
+            console.log('STOP :', j.x, maxX, j.y, maxY);
+            clearInterval(refreshIntervalId);
+        }
+    }, sec);
 
 }
 
@@ -80,15 +91,17 @@ function sendAjax(json) {
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
 
+    var aaa;
+
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
+            document.getElementById('time').innerHTML = this.responseText;
             console.log(this.responseText);
         }
     });
 
     xhr.open("POST", "http://pixelcanvas.io/api/pixel");
     xhr.setRequestHeader("content-type", "application/json");
-    //xhr.setRequestHeader("postman-token", "5c6dc267-2d0a-9de8-6d93-069f42e789f8");
 
     xhr.send(json);
 }

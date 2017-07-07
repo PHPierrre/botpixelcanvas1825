@@ -1,4 +1,7 @@
 <style type="text/css">
+    html{
+        width: 500px;
+    }
     .center{
         text-align: center;
     }
@@ -10,12 +13,50 @@
         font-weight: bold;
         text-align: center;
     }
+    .notdisplay{
+        display: none;
+    }
 </style>
 
 <script src="popup.js"></script>
 
-<input id="x" type="text" name="x" placeholder="x" />
-<input id="y" type="text" name="y" placeholder="y" />
-<input id="color" type="text" name="" placeholder="id color" value="5" />
-<input id="fingerprint" type="text" name="fingerprint" placeholder="..." value="801b194e224cd0f4c09821401fdadcd9" />
-<div id="but" class="but go">GO !</div>
+<div class="group">
+    <label for="x">Position x de d&eacute;part :</label>
+    <input id="x" type="text" name="x" placeholder="x" />
+</div>
+<div class="group">
+    <label for="y">Position y de d&eacute;part :</label>
+    <input id="y" type="text" name="y" placeholder="y" />
+</div>
+
+<div class="group">
+    <label for="color">ID Couleur <a href="https://github.com/PHPierrre/botpixelcanvas1825/wiki/Couleurs">help ? </a> : </label>
+    <input id="color" type="text" name="" placeholder="id color" value="5" />
+</div>
+
+<div class="group">
+    <label for="fingerprint">Fingerprint (ne pas toucher) : </label>
+    <input id="fingerprint" type="text" name="fingerprint" placeholder="..." value="801b194e224cd0f4c09821401fdadcd9" />
+</div>
+
+<div class="group">
+    <label for="maxX">Nombre de case vers la droite : </label>
+    <input id="maxX" type="text" name="maxX" placeholder="taille" value="20" />
+</div>
+
+<div class="group">
+    <label for="maxY">Nombre de case vers le bas : </label>
+    <input id="maxY" type="text" name="maxY" placeholder="taille" value="20" />
+</div>
+
+<div class="group">
+    <label for="sec">Nombre de seconde entre chaque action : </label>
+    <input id="sec" type="text" name="sec" placeholder="taille" value="60" />
+    Si vous envoyez trop de requ	&ecirc;te (10/min), vous pourrez 	&ecirc;tre bannis.
+</div>
+
+<div class="group">
+    <div id="but" class="but go">GO !</div>
+</div>
+
+<div class="notdisplay" id="time"></div>
