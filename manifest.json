@@ -1,18 +1,31 @@
 {
   "manifest_version": 2,
   "name": "Bot Pixelcanvas 1825",
-  "description": "par PHPierre",
+  "description": "Issou",
   "version": "1.0",
   "browser_action": {
     "default_popup": "popup.html"
   },
   "permissions": [
-    "http://pixelcanvas.io/"
+    "http://pixelcanvas.io/",
+    "https://pixelcanvas.io/"
   ],
+  "background": {
+    "scripts": ["js/jquery.min.js", "popup.js"]
+  },
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",
     "48": "icon48.png",
     "128": "icon128.png"
-  }
+  },
+  "web_accessible_resources": [
+    "css/style.css"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://pixelcanvas.io/*"],
+      "js": ["js/jquery.min.js", "popup.js"]
+    }
+  ]
 }
